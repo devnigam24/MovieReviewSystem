@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+<div id="loginModal" class="modal">
+	<h:form prependId="false" class="col s12">
+        <div class="modal-content">
+            <h4>Sign in</h4>
+            <p>Sign in Movie Review</p>
+            <div class="row">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <h:inputText id="LoginUsername" value="#{userAcc.userName}" size="20" class="validate" 
+								required="true" label="LoginUsername" validatorMessage="UserName length has to be between 5 to 10 characters">
+							<f:validateLength minimum="5" maximum="10" />
+						</h:inputText>
+						<h:message for="LoginUsername" style="color:red" class="validationError" />
+                        <label for="LoginUsername">User Name</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <h:inputText id="loginPassword" value="#{userAcc.password}" size="20" class="validate" 
+								required="true" label="Password" 
+								validatorMessage="password length has to be between 5 to 10 characters">
+							<f:validateLength minimum="5" maximum="10" />
+						</h:inputText>
+						<h:message for="loginPassword" style="color:red" class="validationError" />
+                        <label for="loginPassword">Password</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <h:commandButton name="submitButton" class="btn waves-effect waves-green btn-flat paddingtop10" actionListener="#{userAcc.submit('login')}"
+					value="Login" />
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+         </h:form>
+    </div>
+ </h:body>
+ </html>

@@ -1,0 +1,76 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+	<div class="row">
+		<ui:repeat value="#{movieInfo.fetchMovieInfo()}" var="item">
+			<div class="card col s3">
+				<div class="card-image waves-effect waves-block waves-light">
+					<h:graphicImage library='images' value='resources/images/#{item.movieId}.jpg' class='activator'/>
+				</div>
+				<div class="card-content">
+					<span class="activator grey-text text-darken-4">#{item.movieName}
+						<i class="material-icons right">more_vert</i>
+					</span>
+					<p>
+						<a onclick="openBelowModal(this);">#{item.movieRating}</a>
+						<div class="modal">
+							<h:form prependId="false" class="col s12">
+							    <div class="modal-content">
+							      <h4>Provide a rating</h4>
+									<div class="row">
+										<div class="input-field col s12">
+											<h:selectOneMenu id="ratingDropDown" value="#{item.movieRating}">
+												<f:selectItem itemValue="1" itemLabel="1" />
+												<f:selectItem itemValue="1.5" itemLabel="1.5" />
+												<f:selectItem itemValue="2" itemLabel="2" />
+												<f:selectItem itemValue="2.5" itemLabel="2.5" />
+												<f:selectItem itemValue="3" itemLabel="3" />
+												<f:selectItem itemValue="3.5" itemLabel="3.5" />
+												<f:selectItem itemValue="4" itemLabel="4" />
+												<f:selectItem itemValue="4.5" itemLabel="4.5" />
+												<f:selectItem itemValue="2" itemLabel="2" />
+											</h:selectOneMenu>
+										</div>
+									</div>
+							    </div>
+							    <div class="modal-footer">
+							    	<c:set var="paramToPass" value="#{item.movieName}"></c:set>
+							      	<h:commandButton name="submitButton" class="btn waves-effect waves-green btn-flat paddingtop10" 
+							      			actionListener="#{movieInfo.submitRating(paramToPass)}" value="Update" />
+									<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+							    </div>
+						    </h:form>
+					  	</div>
+					</p>
+				</div>
+				<div class="card-reveal">
+					<span class="card-title grey-text text-darken-4">#{item.movieName}<i
+						class="material-icons right">close</i></span>
+					 <ui:fragment rendered="#{empty item.movieReview}">
+			            <p>No review available</p>
+		            </ui:fragment>
+					<ui:repeat value="#{item.movieReview}" var="variable">
+						<p>#{variable.review} by #{variable.userName}</p>
+					</ui:repeat>
+					<ui:fragment rendered="#{sessionScope.sessionUser != null}">
+	              		<a class="waves-effect waves-light btn" onclick="openReviewBox(this);">Add Reviews</a>
+	              	</ui:fragment>
+	              	<div class="bottom-sheet hide">
+						<h:form prependId="false" class="col s12">
+			                         <div class="input-field col s12">
+			                             <h:inputTextarea style="color: black;" id="review" name="review" 
+			                             			value="#{reviewBean.review}" class="materialize-textarea" />
+			                             <label for="textarea1">Review</label>
+			                         </div>
+								<c:set var="paramToPass" value="#{item.movieName}"></c:set>
+					         	<h:commandButton name="comment" class="btn waves-effect waves-green btn-flat paddingtop10" onclick="attachReviewValue(this)"
+					         			actionListener="#{reviewBean.storeThisReviewForThisPost(paramToPass)}" value="Post" />
+						</h:form>
+					 </div>
+				</div>
+			</div>
+		</ui:repeat>
+	</div>
+</h:body>
+</html>

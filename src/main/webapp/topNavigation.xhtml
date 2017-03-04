@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+	<nav>
+		<div class="nav-wrapper blue ">
+			<h:link value="MovieReview" outcome="#" class="brand-logo" />
+			<ul id="nav-web" class="right hide-on-med-and-down">
+				<li class="myLi">
+					<a><h:outputText rendered="#{sessionScope.sessionUser != null}" 
+							value="Hello #{sessionScope.sessionUser}" /></a>
+				</li>
+				<li class="myLi"><a id="usernameTitleBar"
+					class='dropdown-button hide' href='#' data-activates='userdropdown'>
+				</a> <!-- Dropdown Structure -->
+					<ul id='userdropdown' class='dropdown-content'>
+						<li><a href="#!" id="signout">Sign out</a></li>
+					</ul></li>
+				<li class="myLi">
+					<h:link value="New User" id="mmode3" rendered="#{sessionScope.sessionUser == null}" 
+						outcome="#modal3" onclick="openModal('signUpModal');" />
+				</li>
+				<li class="myLi">
+					<h:link value="Sign In" id="mmode2" rendered="#{sessionScope.sessionUser == null}" 
+						outcome="#modal2" onclick="openModal('loginModal');" />
+				</li>
+				<li class="myLi">
+					<h:link value="LogOut" id="mmode4" outcome="#modal4" rendered="#{sessionScope.sessionUser != null}"/>
+				</li>
+			</ul>
+		</div>
+	</nav>
+</h:body>
+</html>
